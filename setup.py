@@ -70,7 +70,7 @@ def get_requirements(requirements_path):
     with open(requirements_path, 'r') as f:
         for line in f:
             line = line.strip()
-            if line and not line.startswith('#'):
+            if line and not line.startswith('#') and line != '.':
                 requirements.append(line)
     return requirements
 
@@ -101,7 +101,6 @@ setup(
     url="https://github.com/FormerLurker/Octolapse/",
     license="GNU Affero General Public License v3",
     packages=["octoprint_octolapse",
-              "octoprint_octolapse.stabilization_gcode",
               "octoprint_octolapse_setuptools"],
     package_data={
         "octoprint_octolapse": package_data_dirs(
@@ -124,33 +123,26 @@ setup(
     },
     ext_modules=[
         Extension(
-            'octoprint_octolapse.gcode_parser',
+            'GcodePositionProcessor',
             sources=[
-                'octoprint_octolapse/gcode_parser.cpp',
-                'octoprint_octolapse/extruder.cpp',
-                'octoprint_octolapse/position.cpp',
-                'octoprint_octolapse/stabilization.cpp',
-                'octoprint_octolapse/stabilization_smart_layer.cpp',
-                'octoprint_octolapse/stabilization_smart_gcode.cpp',
-                'octoprint_octolapse/trigger_position.cpp',
-                'octoprint_octolapse/snapshot_plan.cpp',
-                'octoprint_octolapse/snapshot_plan_step.cpp',
-                'octoprint_octolapse/parsed_command.cpp',
-                'octoprint_octolapse/parsed_command_parameter.cpp',
-                'octoprint_octolapse/gcode_comment_processor.cpp',
-                'octoprint_octolapse/gcode_position_processor.cpp',
-                'octoprint_octolapse/position_args.cpp',
-                'octoprint_octolapse/gcode_position_args.cpp',
-                'octoprint_octolapse/parsed_command_args.cpp',
-                'octoprint_octolapse/gcode_processor_args.cpp',
-                'octoprint_octolapse/stabilization_args.cpp',
-                'octoprint_octolapse/trigger_position_args.cpp',
-                'octoprint_octolapse/snapshot_plan_args.cpp',
-                'octoprint_octolapse/python_helpers.cpp',
-                'octoprint_octolapse/logging.cpp',
-                'octoprint_octolapse/utilities.cpp',
-                'octoprint_octolapse/extruder_args.cpp',
-                'octoprint_octolapse/py_logger.cpp'
+                'octoprint_octolapse/data/lib/c/gcode_parser.cpp',
+                'octoprint_octolapse/data/lib/c/extruder.cpp',
+                'octoprint_octolapse/data/lib/c/position.cpp',
+                'octoprint_octolapse/data/lib/c/stabilization.cpp',
+                'octoprint_octolapse/data/lib/c/stabilization_smart_layer.cpp',
+                'octoprint_octolapse/data/lib/c/stabilization_smart_gcode.cpp',
+                'octoprint_octolapse/data/lib/c/trigger_position.cpp',
+                'octoprint_octolapse/data/lib/c/snapshot_plan.cpp',
+                'octoprint_octolapse/data/lib/c/snapshot_plan_step.cpp',
+                'octoprint_octolapse/data/lib/c/parsed_command.cpp',
+                'octoprint_octolapse/data/lib/c/parsed_command_parameter.cpp',
+                'octoprint_octolapse/data/lib/c/gcode_comment_processor.cpp',
+                'octoprint_octolapse/data/lib/c/gcode_position.cpp',
+                'octoprint_octolapse/data/lib/c/gcode_position_processor.cpp',
+                'octoprint_octolapse/data/lib/c/stabilization_results.cpp',
+                'octoprint_octolapse/data/lib/c/python_helpers.cpp',
+                'octoprint_octolapse/data/lib/c/logging.cpp',
+                'octoprint_octolapse/data/lib/c/utilities.cpp',
             ],
             language='c++',
         )
